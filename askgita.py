@@ -56,6 +56,10 @@ if st.button("Ask Gita for Guidance"):
             
             if response.status_code == 200:
                 data = response.json()
+
+                # Debugging: Show the raw response data
+                st.write("Raw response data:", data)
+
                 guidance_answer = data.get("answer", None)
                 
                 if guidance_answer:
@@ -64,9 +68,11 @@ if st.button("Ask Gita for Guidance"):
                 else:
                     st.warning("No guidance found for your question, but keep seeking!")
             else:
-                st.error("Failed to retrieve guidance. Please try again later.")
+                st.error(f"Failed to retrieve guidance. Server responded with status code: {response.status_code}")
+        except requests.exceptions.RequestException as e:
+            st.error(f"An error occurred while making the request: {e}")
         except Exception as e:
-            st.error(f"An error occurred: {e}")
+            st.error(f"An unexpected error occurred: {e}")
     else:
         st.warning("Please enter a question before seeking guidance.")
 
