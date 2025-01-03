@@ -5,6 +5,7 @@ from gtts import gTTS  # Now that gTTS is in the requirements.txt, we can import
 
 # API URL
 url = "https://2owawgyt71.execute-api.us-east-1.amazonaws.com/dev/blog-generation"
+data = {"blog_topic": address} 
 
 # App Title
 st.set_page_config(page_title="Ask Gita - Spiritual Insights", layout="centered", page_icon="🙏")
@@ -49,7 +50,7 @@ if st.button("Seek Guidance"):
     if question:
         try:
             # Make a request to the API
-            response = requests.post(url, json={"question": question})
+            response = requests.post(url, json=data)
             
             if response.status_code == 200:
                 data = response.json()
