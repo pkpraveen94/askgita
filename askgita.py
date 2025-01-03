@@ -1,16 +1,7 @@
-import subprocess
-import sys
-
-# Check if gTTS is installed, if not install it
-try:
-    from gtts import gTTS
-except ImportError:
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "gTTS"])
-    from gtts import gTTS
-
 import streamlit as st
 import requests
 import os
+from gtts import gTTS  # Now that gTTS is in the requirements.txt, we can import it directly.
 
 # API URL
 url = "https://2owawgyt71.execute-api.us-east-1.amazonaws.com/dev/blog-generation"
