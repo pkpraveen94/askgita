@@ -1,6 +1,7 @@
-# Import necessary libraries
 import streamlit as st
 import requests
+from gtts import gTTS
+import os
 
 # API URL
 url = "https://2owawgyt71.execute-api.us-east-1.amazonaws.com/dev/blog-generation"
@@ -35,7 +36,7 @@ st.markdown(
 )
 
 # Introduction section
-st.markdown("""
+st.markdown(""" 
 ### Welcome to Ask Gita
 🙏 Dive deep into the wisdom of the Bhagavad Gita. Ask your questions and uncover spiritual insights to guide your journey.
 """)
@@ -43,7 +44,7 @@ st.markdown("""
 # Input section
 question = st.text_input("What spiritual question is on your mind today?")
 
-# Submit button
+# Submit button for asking question
 if st.button("Seek Guidance"):
     if question:
         try:
@@ -52,8 +53,23 @@ if st.button("Seek Guidance"):
             
             if response.status_code == 200:
                 data = response.json()
+                answer = data.get("answer", "No answer found, but keep seeking!")
+                
                 st.success("Here's the wisdom we found for you:")
-                st.write(data.get("answer", "No answer found, but keep seeking!"))
+                st.write(answer)
+
+                # Display button for hearing the guidance
+                if st.button("🎧 Hear the Guidance"):
+                    # Convert text to speech (voice note)
+                    tts = gTTS(text=answer, lang='en')
+                    tts.save("answer.mp3")
+                    
+                    # Play the voice note
+                    st.audio("answer.mp3")
+                    
+                    # Optionally delete the audio file after use
+                    os.remove("answer.mp3")
+                
             else:
                 st.error("Failed to retrieve guidance. Please try again later.")
         except Exception as e:
@@ -62,10 +78,9 @@ if st.button("Seek Guidance"):
         st.warning("Please enter a question before seeking guidance.")
 
 # Footer with two-hand worship symbol
-st.markdown("""
+st.markdown(""" 
 ---
 <div style="text-align: center;">
     🙌 Powered by Ask Gita | Spiritual Guidance for Everyone 🙌
 </div>
 """, unsafe_allow_html=True)
-
