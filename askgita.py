@@ -44,8 +44,11 @@ st.markdown("""
 # Input section
 question = st.text_input("What spiritual question is on your mind today?")
 
+# Variable to store answer status
+guidance_answer = None
+
 # Submit button for asking question
-if st.button("Seek Guidance"):
+if st.button("Ask Gita for Guidance"):
     if question:
         try:
             # Send the question as "blog_topic" (matching the expected data format)
@@ -53,29 +56,32 @@ if st.button("Seek Guidance"):
             
             if response.status_code == 200:
                 data = response.json()
-                answer = data.get("answer", "No answer found, but keep seeking!")
+                guidance_answer = data.get("answer", None)
                 
-                st.success("Here's the wisdom we found for you:")
-                st.write(answer)
-
-                # Display button for hearing the guidance
-                if st.button("🎧 Hear the Guidance"):
-                    # Convert text to speech (voice note)
-                    tts = gTTS(text=answer, lang='en')
-                    tts.save("answer.mp3")
-                    
-                    # Play the voice note
-                    st.audio("answer.mp3")
-                    
-                    # Optionally delete the audio file after use
-                    os.remove("answer.mp3")
-                
+                if guidance_answer:
+                    st.success("Here's the wisdom we found for you:")
+                    st.write(guidance_answer)
+                else:
+                    st.warning("No guidance found for your question, but keep seeking!")
             else:
                 st.error("Failed to retrieve guidance. Please try again later.")
         except Exception as e:
             st.error(f"An error occurred: {e}")
     else:
         st.warning("Please enter a question before seeking guidance.")
+
+# Only show the "Hear the Guidance" button if there's an answer
+if guidance_answer:
+    if st.button("🎧 Hear the Guidance"):
+        # Convert text to speech (voice note)
+        tts = gTTS(text=guidance_answer, lang='en')
+        tts.save("answer.mp3")
+        
+        # Play the voice note
+        st.audio("answer.mp3")
+        
+        # Optionally delete the audio file after use
+        os.remove("answer.mp3")
 
 # Footer with two-hand worship symbol
 st.markdown(""" 
