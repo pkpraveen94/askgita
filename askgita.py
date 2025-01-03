@@ -57,9 +57,6 @@ if st.button("Ask Gita for Guidance"):
             if response.status_code == 200:
                 data = response.json()
 
-                # Debugging: Show the raw response data
-                st.write("Raw response data:", data)
-
                 # Extract the 'places_content' from the response
                 guidance_answer = data.get("places_content", None)
                 
