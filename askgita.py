@@ -1,6 +1,15 @@
+import subprocess
+import sys
+
+# Check if gTTS is installed, if not install it
+try:
+    from gtts import gTTS
+except ImportError:
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "gTTS"])
+    from gtts import gTTS
+
 import streamlit as st
 import requests
-from gtts import gTTS
 import os
 
 # API URL
