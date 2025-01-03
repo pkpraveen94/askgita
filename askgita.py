@@ -51,7 +51,7 @@ guidance_answer = None
 if st.button("Ask Gita for Guidance"):
     if question:
         try:
-            # Send the question as "blog_topic" (matching the expected data format)
+            # Send the question directly without modifying the prompt
             response = requests.post(url, json={"blog_topic": question})
             
             if response.status_code == 200:
@@ -60,7 +60,8 @@ if st.button("Ask Gita for Guidance"):
                 # Debugging: Show the raw response data
                 st.write("Raw response data:", data)
 
-                guidance_answer = data.get("answer", None)
+                # Extract the 'places_content' from the response
+                guidance_answer = data.get("places_content", None)
                 
                 if guidance_answer:
                     st.success("Here's the wisdom we found for you:")
