@@ -1,11 +1,10 @@
 import streamlit as st
 import requests
+from gtts import gTTS
 import os
-from gtts import gTTS  # Now that gTTS is in the requirements.txt, we can import it directly.
 
 # API URL
 url = "https://2owawgyt71.execute-api.us-east-1.amazonaws.com/dev/blog-generation"
-data = {"blog_topic": address} 
 
 # App Title
 st.set_page_config(page_title="Ask Gita - Spiritual Insights", layout="centered", page_icon="🙏")
@@ -49,8 +48,8 @@ question = st.text_input("What spiritual question is on your mind today?")
 if st.button("Seek Guidance"):
     if question:
         try:
-            # Make a request to the API
-            response = requests.post(url, json=data)
+            # Send the question as "blog_topic" (matching the expected data format)
+            response = requests.post(url, json={"blog_topic": question})
             
             if response.status_code == 200:
                 data = response.json()
