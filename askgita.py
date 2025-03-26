@@ -60,9 +60,10 @@ def main():
     """Main function for Streamlit app."""
     st.title("BalletDA - Suitable Indoor Locations for Voting")
 
-    latitude, longitude = 33.8570, -84.3350
+    latitude, longitude = 33.9614, -84.0235
     location = f"{latitude},{longitude}"
-    radius = 80467  # 50 miles in meters
+    radius = 32186  # 20 miles in meters
+
     place_types_options = ["library", "community_center", "auditorium", "school"]
 
     # Initialize session state for selection control
@@ -73,7 +74,7 @@ def main():
         st.session_state.selection_made = False
 
     # Show the radius and location info
-    st.write(f"🔍 Searching for voting places around **Atlanta (Brookhaven)**, within a **{radius / 1609.34:.2f} miles** radius.")
+    st.write(f"🔍 Searching for voting places around **Gwinnett County, GA,**, within a **{radius / 1609.34:.2f} miles** radius.")
 
     # If selection hasn't been made, show the dropdown
     if not st.session_state.selection_made:
