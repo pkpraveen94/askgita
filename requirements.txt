@@ -1,8 +1,7 @@
 streamlit==1.18.1
 requests==2.26.0
 folium==0.12.1
-streamlit-folium==0.10.0
+streamlit-folium==0.9.0
 # gTTS
 # requests
 # streamlit
-

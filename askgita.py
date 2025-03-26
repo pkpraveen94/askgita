@@ -8,7 +8,7 @@ api_key = "AIzaSyDxN9MpYQa1o4pZanoUlRBZBDqrC-veu9U"
 
 # Function to fetch data from the Google Places API
 def fetch_places_data(api_key, location, radius, place_types):
-    """Fetch data from Google Places API for selected place types ."""
+    """Fetch data from Google Places API for selected place types."""
     if not place_types:
         return None  
 
@@ -77,22 +77,20 @@ def main():
 
     # If selection hasn't been made, show the dropdown
     if not st.session_state.selection_made:
-        selected_types = st.multiselect("Select Place Types", place_types_options, default=[])
+        selected_types = st.multiselect("Select Place Types", place_types_options, default=st.session_state.selected_types)
         
         if selected_types:
             st.session_state.selected_types = selected_types
             st.session_state.selection_made = True  
-            st.rerun()  # Hide the dropdown and refresh the page
 
     # If selection is made, display Reset button and show current selection
-    else:
+    if st.session_state.selection_made:
         selected_types = st.session_state.selected_types
         st.success(f"✅ Showing results for: **{', '.join(selected_types)}**")
         
         if st.button("🔄 Select Another Place Type"):
             st.session_state.selection_made = False  # Show dropdown again
             st.session_state.selected_types = []
-            st.rerun()
 
     # If no types are selected, show a message
     if not selected_types:
@@ -108,7 +106,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 
 
 #ASK GITA CODE
