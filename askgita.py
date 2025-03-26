@@ -58,7 +58,7 @@ def create_map(places_data, center_location, zoom_start=12):
 # Streamlit app structure
 def main():
     """Main function for Streamlit app."""
-    st.title("BalletDA - Suitable Indoor Locations for Voting")
+    st.markdown("<h3>BalletDA - Suitable Indoor Locations for Voting</h3>", unsafe_allow_html=True)
 
     latitude, longitude = 33.9614, -84.0235
     location = f"{latitude},{longitude}"
