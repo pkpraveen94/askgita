@@ -8,7 +8,7 @@ api_key = "AIzaSyDxN9MpYQa1o4pZanoUlRBZBDqrC-veu9U"
 
 # Function to fetch data from the Google Places API
 def fetch_places_data(api_key, location, radius, place_types):
-    """Fetch data from Google Places API for selected place types."""
+    """Fetch data from Google Places API for selected place types ."""
     if not place_types:
         return None  
 
